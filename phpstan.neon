@@ -1,8 +1,7 @@
-includes:
-    - vendor/phpstan/phpstan-strict-rules/rules.neon
-    - vendor/phpstan/phpstan-beberlei-assert/extension.neon
-
 parameters:
-    level: 8
-    excludes_analyse:
-        - %rootDir%/../../../vendor/*
+    level: 9
+    scanDirectories:
+        - src
+        - tests
+    excludePaths:
+        - vendor

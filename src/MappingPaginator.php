@@ -4,33 +4,40 @@ namespace Mention\Paginator;
 
 /**
  * A paginator that maps items through a callback.
+ *
+ * @template OrigItemT
+ * @template NewItemT
+ *
+ * @implements PaginatorInterface<NewItemT>
  */
 final class MappingPaginator implements PaginatorInterface
 {
     /**
-     * @phpstan-var \Generator<int, PaginatorPageInterface, mixed, mixed>
+     * implementation of current()/key()/next()/rewind()/valid().
+     *
+     * @use GeneratorPaginatorTrait<NewItemT>
      */
-    private $generator;
+    use GeneratorPaginatorTrait;
 
+    /**
+     * @var \Generator<int,PaginatorPage<NewItemT>>
+     */
+    private \Generator $generator;
+
+    /**
+     * @param PaginatorInterface<OrigItemT>                                                             $paginator
+     * @param callable(array<int,PaginatorItemInterface<OrigItemT>>):array<int,PaginatorItem<NewItemT>> $callback
+     */
     public function __construct(PaginatorInterface $paginator, callable $callback)
     {
         $this->generator = $this->createGenerator($paginator, $callback);
     }
 
     /**
-     * Implementation of \IteratorAggregate::getIterator().
+     * @param PaginatorInterface<OrigItemT>                                                             $paginator
+     * @param callable(array<int,PaginatorItemInterface<OrigItemT>>):array<int,PaginatorItem<NewItemT>> $callback
      *
-     * Foreach calls this method when iterating over an ArrayPaginator.
-     *
-     * {@inheritdoc}
-     */
-    public function getIterator()
-    {
-        return $this->generator;
-    }
-
-    /**
-     * @phpstan-return \Generator<int, PaginatorPageInterface, mixed, mixed>
+     * @return \Generator<int,PaginatorPage<NewItemT>>
      */
     private function createGenerator(PaginatorInterface $paginator, callable $callback)
     {
