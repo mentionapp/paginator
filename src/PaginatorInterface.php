@@ -3,9 +3,9 @@
 namespace Mention\Paginator;
 
 /**
- * A paginator that iterates over PaginatorPageInterface instances.
+ * PaginatorInterface.
  *
- * Example:
+ * ## Example usage
  *
  * foreach ($paginator as $page) {
  *     // $page is a PaginatorPageInterface
@@ -14,16 +14,10 @@ namespace Mention\Paginator;
  *     }
  * }
  *
- * @phpstan-extends \IteratorAggregate<int, PaginatorPageInterface>
+ * @template ItemT
+ *
+ * @extends \Iterator<int,PaginatorPageInterface<ItemT>>
  */
-interface PaginatorInterface extends \IteratorAggregate
+interface PaginatorInterface extends \Iterator
 {
-    /**
-     * Implementation of \IteratorAggregate::getIterator().
-     *
-     * Foreach calls this method.
-     *
-     * @phpstan-return \Traversable<int, PaginatorPageInterface>
-     */
-    public function getIterator();
 }

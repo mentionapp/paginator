@@ -2,10 +2,13 @@
 
 namespace Mention\Paginator;
 
+/**
+ * @template ItemT
+ */
 interface PaginatorItemInterface
 {
     public function getCursor(): ?string;
 
-    /** @return mixed */
+    /** @return ItemT */
     public function getData();
 }

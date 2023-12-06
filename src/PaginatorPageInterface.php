@@ -2,8 +2,16 @@
 
 namespace Mention\Paginator;
 
+/**
+ * @template ItemT
+ */
 interface PaginatorPageInterface
 {
+    /**
+     * @return array<int,PaginatorItemInterface<ItemT>>
+     */
+    public function items(): array;
+
     /**
      * Backwards compatibility wrapper.
      *
@@ -16,14 +24,9 @@ interface PaginatorPageInterface
      *     }
      *  }
      *
-     * @return mixed[]
+     * @return array<ItemT>
      */
     public function __invoke(): array;
-
-    /**
-     * @return PaginatorItemInterface[]
-     */
-    public function items(): array;
 
     /**
      * Returns the cursor of the first item.

@@ -2,16 +2,20 @@
 
 namespace Mention\Paginator;
 
+/**
+ * @template ItemT
+ *
+ * @implements PaginatorItemInterface<ItemT>
+ */
 final class PaginatorItem implements PaginatorItemInterface
 {
-    /** @var string|null */
-    private $cursor;
+    private ?string $cursor;
 
-    /** @var mixed */
+    /** @var ItemT */
     private $data;
 
     /**
-     * @param mixed $data
+     * @param ItemT $data
      */
     public function __construct(?string $cursor, $data)
     {
@@ -25,7 +29,7 @@ final class PaginatorItem implements PaginatorItemInterface
     }
 
     /**
-     * @return mixed
+     * @return ItemT
      */
     public function getData()
     {
